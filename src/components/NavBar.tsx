@@ -1,61 +1,78 @@
-//src/components/NavBar.tsx
-"use client"; // Add this line at the top to mark this component as a client component
 
-import React from 'react';
-import { BottomNavigation, BottomNavigationAction } from '@mui/material';
+// /src/components/Navbar.tsx
+
+"use client";
+
+import * as React from 'react';
+import { BottomNavigation, BottomNavigationAction, Box, Avatar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
-import AddBoxIcon from '@mui/icons-material/AddBox'; // You can also switch this to AddIcon if preferred
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import PersonIcon from '@mui/icons-material/Person';
-import Link from 'next/link';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
 
-const Navbar = () => {
-    const [value, setValue] = React.useState(0);
+export default function Navbar() {
+  const [value, setValue] = React.useState('/');
+  const router = useRouter();
+  const { data: session, status } = useSession();
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
+  const handleNavigation = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+    router.push(newValue);
+  };
 
-    return (
-        <BottomNavigation
-            value={value}
-            onChange={handleChange}
-            showLabels
-            sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
-        >
-            <BottomNavigationAction
-                label="Home"
-                icon={<HomeIcon />}
-                component={Link}
-                href="/" // Link to Home
-            />
-            <BottomNavigationAction
-                label="Search"
-                icon={<SearchIcon />}
-                component={Link}
-                href="/hladanie" // Link to Search
-            />
-            <BottomNavigationAction
-                label="Add"
-                icon={<AddBoxIcon />}
-                component={Link}
-                href="/pridat" // Link to Add
-            />
-            <BottomNavigationAction
-                label="Notifications"
-                icon={<NotificationsIcon />}
-                component={Link}
-                href="/notifikacie" // Link to Notifications
-            />
-            <BottomNavigationAction
-                label="Profile"
-                icon={<PersonIcon />}
-                component={Link}
-                href="/profil" // Link to Profile
-            />
-        </BottomNavigation>
-    );
-};
+  // Non-authenticated navigation paths
+  const nonAuthPaths = [
+    { label: "Domov", value: "/", icon: <HomeIcon /> },
+    { label: "Prispevky", value: "/prispevok", icon: <AddCircleIcon /> },
+    { label: "Registrácia", value: "/auth/registracia", icon: <AppRegistrationIcon /> },
+    { label: "Prihlásenie", value: "/auth/prihlasenie", icon: <LoginIcon /> }
+  ];
 
-export default Navbar; // Export as Navbar
+  // Authenticated navigation paths
+  const authPaths = [
+    { label: "Domov", value: "/", icon: <HomeIcon /> },
+    { label: "Hľadať", value: "/search", icon: <SearchIcon /> },
+    { label: "Pridať", value: "/add", icon: <AddCircleIcon /> },
+    {
+      label: "Profil",
+      value: "/profil",
+      icon: session?.user?.image ? (
+        <Avatar 
+          alt={session?.user?.name || "User"} 
+          src={session?.user?.image || undefined} 
+        />
+      ) : (
+        <Avatar>{session?.user?.name?.charAt(0) || "U"}</Avatar>
+      )
+    },
+    { label: "Odhlásiť", value: "/auth/odhlasenie", icon: <LogoutIcon /> },
+  ];
+
+  // Decide which paths to use based on authentication status
+  const navigationPaths = status === "authenticated" ? authPaths : nonAuthPaths;
+
+  return (
+    <Box sx={{ width: '100%', position: 'fixed', bottom: 0 }}>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={handleNavigation}
+      >
+        {navigationPaths.map((path) => (
+          <BottomNavigationAction
+            key={path.value}
+            label={path.label}
+            value={path.value}
+            icon={path.icon}
+          />
+        ))}
+      </BottomNavigation>
+    </Box>
+  );
+}
+
+
