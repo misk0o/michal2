@@ -57,56 +57,56 @@ export default function SignUpView() {
 }
 
 
-      // {/* Facebook Sign Up */}
-      // <Button
-      //   variant="outlined"
-      //   fullWidth
-      //   startIcon={<FacebookIcon />}
-      //   sx={{ mb: 4 }}
-      // >
-      //   Registrovať sa účtom Facebook
-      // </Button>
+    // {/* Facebook Sign Up */}
+    // <Button
+    //   variant="outlined"
+    //   fullWidth
+    //   startIcon={<FacebookIcon />}
+    //   sx={{ mb: 4 }}
+    // >
+    //   Registrovať sa účtom Facebook
+    // </Button>
 
-      // {/* Divider */}
-      // <Divider sx={{ width: "100%", mb: 2 }}>
-      //   <Typography variant="body2">alebo</Typography>
-      // </Divider>
+    // {/* Divider */}
+    // <Divider sx={{ width: "100%", mb: 2 }}>
+    //   <Typography variant="body2">alebo</Typography>
+    // </Divider>
 
-      // {/* Email */}
-      // <TextField
-      //   margin="normal"
-      //   fullWidth
-      //   label="Email"
-      //   type="email"
-      //   variant="outlined"
-      //   required
-      //   defaultValue="your@email.com"
-      // />
+    // {/* Email */}
+    // <TextField
+    //   margin="normal"
+    //   fullWidth
+    //   label="Email"
+    //   type="email"
+    //   variant="outlined"
+    //   required
+    //   defaultValue="your@email.com"
+    // />
 
-      // {/* Password */}
-      // <TextField
-      //   margin="normal"
-      //   fullWidth
-      //   label="Password"
-      //   type="password"
-      //   variant="outlined"
-      //   required
-      //   defaultValue="******"
-      // />
+    // {/* Password */}
+    // <TextField
+    //   margin="normal"
+    //   fullWidth
+    //   label="Password"
+    //   type="password"
+    //   variant="outlined"
+    //   required
+    //   defaultValue="******"
+    // />
 
-      // {/* Checkbox */}
-      // <FormControlLabel
-      //   control={<Checkbox color="primary" />}
-      //   label="Chcem dostávať novinky na email"
-      //   sx={{ mt: 2 }}
-      // />
+    // {/* Checkbox */}
+    // <FormControlLabel
+    //   control={<Checkbox color="primary" />}
+    //   label="Chcem dostávať novinky na email"
+    //   sx={{ mt: 2 }}
+    // />
 
-      // {/* Sign Up Button */}
-      // <Button
-      //   variant="contained"
-      //   fullWidth
-      //   size="large"
-      //   sx={{ mt: 2, mb: 1 }}
-      // >
-      //   Registrovať
-      // </Button>
+    // {/* Sign Up Button */}
+    // <Button
+    //   variant="contained"
+    //   fullWidth
+    //   size="large"
+    //   sx={{ mt: 2, mb: 1 }}
+    // >
+    //   Registrovať
+    // </Button>

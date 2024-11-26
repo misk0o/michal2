@@ -1,16 +1,17 @@
+// src/app/page.tsx
 
-///src/app/(home)/page.tsx
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/authOptions";
+import AuthHomeView from "@/sections/AuthHomeView";
+import NonAuthHomeView from "@/sections/NonAuthHomeView";
 
-import Typography from "@mui/material/Typography";
+export const metadata = { title: "Domov | PokecNaPoker" };
 
-export const metadata = {title:"Domov | Petrik"};
+export default async function HomePage() {
+  // Fetch session on the server
+  const session = await getServerSession(authOptions);
 
-export default function Home() {
-
-  return (
-
-    <Typography> Hello world </Typography>
-
-  );
+  // Conditionally render authenticated or non-authenticated home view
+  return session ? <AuthHomeView session={session} /> : <NonAuthHomeView />;
 }
 
