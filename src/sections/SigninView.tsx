@@ -1,55 +1,65 @@
-// src/sections/SignInView.tsx
-
 "use client";
 
 import {
-    Button,
-    //Checkbox,
-    Container,
-    //FormControlLabel,
-    //TextField,
-    Typography,
-    //Divider,
-  } from "@mui/material";
-  import { signIn } from "next-auth/react";
-  import GoogleIcon from "@mui/icons-material/Google";
-  //import FacebookIcon from "@mui/icons-material/Facebook";
+  Button,
+  Container,
+  Typography,
+  Box,
+  useTheme, // Import useTheme hook
+} from "@mui/material";
+import { signIn } from "next-auth/react";
+import GoogleIcon from "@mui/icons-material/Google";
 
 export default function SignInView() {
+  const theme = useTheme(); // Access the MUI theme
+
   return (
-    <Container
-      maxWidth="xs"
+    <Box
       sx={{
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        mt: 5,
-        p: 3,
-        bgcolor: "background.paper",
-        boxShadow: 3,
-        borderRadius: 2,
+        justifyContent: "center",  // Horizontally center the container
+        alignItems: "center",      // Vertically center the container
+        minHeight: "100vh",        // Ensure full viewport height for centering
+        backgroundColor: theme.palette.background.default, // Optional: use theme background
       }}
     >
-      {/* Logo / Title */}
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        Prihlásenie
-      </Typography>
-
-      {/* Google Sign Up */}
-      <Button
-        variant="outlined"
-        fullWidth
-        startIcon={<GoogleIcon />}
-        onClick={() => signIn("google")}
-        sx={{ mb: 1 }}
+      <Container
+        maxWidth="xs"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center", // Centering the content vertically
+          p: 3,
+          bgcolor: theme.palette.background.paper, // Use theme's paper color
+          boxShadow: 3,
+          borderRadius: 2,
+        }}
       >
-        Prihlásiť sa účtom Google
-      </Button>
+        {/* Logo / Title */}
+        <Typography variant="h5" sx={{ mb: 3 }}>
+          Prihlásenie
+        </Typography>
 
+        <Typography variant="body1" sx={{ mb: 6 }}>
+          Nemáte ešte účet? <a href="/auth/registracia">Registrovať sa</a>
+        </Typography>
 
-    </Container>
+        {/* Google Sign In */}
+        <Button
+          variant="outlined"
+          fullWidth
+          startIcon={<GoogleIcon />}
+          onClick={() => signIn("google")}
+          sx={{ mb: 1 }}
+        >
+          Prihlásiť sa účtom Google
+        </Button>
+      </Container>
+    </Box>
   );
 }
+
 
 
       // {/* Facebook Sign Up */}

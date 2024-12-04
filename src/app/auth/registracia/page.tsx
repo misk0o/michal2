@@ -1,4 +1,4 @@
-// src/app/auth/registracia/page.tsx
+//src\app\auth\registracia\page.tsx
 
 import SignUpView from "@/sections/SignUpView";
 

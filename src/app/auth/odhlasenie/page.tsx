@@ -1,4 +1,5 @@
-// src/app/auth/odhlasenie/page.tsx
+
+//src\app\auth\odhlasenie\page.tsx
 
 import SignOutView from "@/sections/SignOutView";
 
