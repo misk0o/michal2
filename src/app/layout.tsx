@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import "./globals.css";
 import Navbar from "../components/NavBar";
 import AuthProvider from "../components/AuthProviders";
+import ThemeProvider from "../components/ThemeProviders"; // Import the ThemeProvider
 
 export const metadata: Metadata = {
   title: "SnapZoška",
@@ -18,18 +19,21 @@ export default function RootLayout({
   return (
     <html lang="sk">
       <body>
-        <AuthProvider>
-          <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <main style={{ flexGrow: 1 }}>
-              {children}
-            </main>
-          </div>
-          <Navbar /> 
-        </AuthProvider>
+        <ThemeProvider> {/* Wrap your application with ThemeProvider */}
+          <AuthProvider>
+            <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+              <main style={{ flexGrow: 1 }}>
+                {children}
+              </main>
+            </div>
+            <Navbar /> 
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+
 
 
 
