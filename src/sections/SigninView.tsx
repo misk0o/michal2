@@ -5,13 +5,17 @@ import {
   Container,
   Typography,
   Box,
-  useTheme, // Import useTheme hook
+  useTheme,
+  Link, // Import useTheme hook
 } from "@mui/material";
 import { signIn } from "next-auth/react";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub"; // Import GitHub icon
+import { useRouter } from "next/navigation";
+
 
 export default function SignInView() {
+  const router = useRouter();
   const theme = useTheme(); // Access the MUI theme
 
   return (
@@ -42,9 +46,16 @@ export default function SignInView() {
           Prihlásenie
         </Typography>
 
-        <Typography variant="body1" sx={{ mb: 6 }}>
-          Nemáte ešte účet? <a href="/auth/registracia">Registrovať sa</a>
-        </Typography>
+        <Typography variant="body1" sx={{ mb: 4 }}>
+        Nemáte ešte účet?{" "}
+        <Link
+          component="button"
+          onClick={() => router.push("/auth/registracia")}
+          sx={{ cursor: "pointer" }}
+        >
+          Registrujte sa!
+        </Link>
+      </Typography>
 
         {/* Google Sign In */}
         <Button

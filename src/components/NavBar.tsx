@@ -52,8 +52,7 @@ export default function Navbar() {
   // Paths for non-authenticated users (public paths)
   const publicPaths = [
     { label: "Domov", value: "/", icon: <HomeIcon /> },
-    { label: "O nás", value: "/onás", icon: <InfoIcon /> },
-    { label: "GDPR", value: "/gdpr", icon: <GavelIcon /> },
+    { label: "O nás", value: "/o-nas", icon: <InfoIcon /> },
     { label: "Registrácia", value: "/auth/registracia", icon: <AppRegistrationIcon /> },
     { label: "Prihlásenie", value: "/auth/prihlasenie", icon: <LoginIcon /> },
   ];

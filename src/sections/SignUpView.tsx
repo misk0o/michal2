@@ -9,17 +9,28 @@ import {
   useTheme,
   Checkbox,
   FormControlLabel,
+  Link,
 } from "@mui/material";
 import { signIn } from "next-auth/react";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { useRouter } from "next/navigation";
+
 
 export default function SignUpView() {
+  const router = useRouter();
   const theme = useTheme(); // Access the MUI theme
   const [agreeToGdpr, setAgreeToGdpr] = useState(false); // State for checkbox
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAgreeToGdpr(event.target.checked); // Update checkbox state
+  };
+  const handleSignUp = (provider: string) => {
+    if (!agreeToGdpr) {
+      alert("Pre pokračovanie musíte súhlasiť s podmienkami používania a GDPR.");
+      return;
+    }
+    signIn(provider);
   };
 
   return (
@@ -51,9 +62,16 @@ export default function SignUpView() {
         </Typography>
 
         {/* Sign-in link */}
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          Už máte účet? <a href="/auth/prihlasenie">Prihláste sa</a>
-        </Typography>
+        <Typography variant="body1" sx={{ mb: 4 }}>
+        Už máte účet?{" "}
+        <Link
+          component="button"
+          onClick={() => router.push("/auth/prihlasenie")}
+          sx={{ cursor: "pointer" }}
+        >
+          Prihláste sa
+        </Link>
+      </Typography>
 
         {/* GDPR Checkbox with reduced space */}
         <FormControlLabel
@@ -66,11 +84,22 @@ export default function SignUpView() {
           }
           label={
             <Typography variant="body2">
-              Súhlasíte s{" "}
-              <a href="/gdpr" target="_blank" rel="noopener noreferrer">
+              Súhlasím s{" "}
+              <Link
+                component="button"
+                onClick={() => router.push("/gdpr")} // Navigate to GDPR page
+                sx={{ cursor: "pointer" }}
+              >
                 GDPR
-              </a>
-              a podminekami použivania ?
+              </Link>{" "}
+              a{" "}
+              <Link
+                component="button"
+                onClick={() => router.push("/podmienky")} // Navigate to Terms page
+                sx={{ cursor: "pointer" }}
+              >
+                podmienkami používania
+              </Link>.
             </Typography>
           }
           sx={{ mb: 1 }} // Reduced margin between checkbox and link
@@ -81,7 +110,7 @@ export default function SignUpView() {
           variant="outlined"
           fullWidth
           startIcon={<GoogleIcon />}
-          onClick={() => signIn("google")}
+          onClick={() => handleSignUp("google")}
           sx={{
             mb: 1,
             borderColor: theme.palette.primary.main, // Use theme's primary color for Google button
@@ -99,7 +128,7 @@ export default function SignUpView() {
           variant="outlined"
           fullWidth
           startIcon={<GitHubIcon />}
-          onClick={() => signIn("github")}
+          onClick={() => handleSignUp("github")}
           sx={{
             mb: 1,
             borderColor: theme.palette.mode === "light" ? "#333" : "#fff", // GitHub color for border based on mode
