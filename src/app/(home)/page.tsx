@@ -12,6 +12,6 @@ export default async function HomePage() {
   const session = await getServerSession(authOptions);
 
   // Conditionally render authenticated or non-authenticated home view
-  return session ? <AuthHomeView session={session} /> : <NonAuthHomeView />;
+  return session ? <AuthHomeView session={session} posts={[]} /> : <NonAuthHomeView />;
 }
 
